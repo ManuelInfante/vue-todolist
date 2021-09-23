@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,14 +19,18 @@
         </div>
 
         <div class="new-todo">
-            <input type="text">
-            <button>Aggiungi</button>
+            <input @keyup.enter="addToDo" v-model="newToDo" type="text" placeholder="Inserisci nuova task"> <!--Quando ho un solo tasto nel Keyup su cui mettere in ascolto posso collegarlo direttamente nel html aggangiando al @keyup il tasto desiderato (es. @keyup.nomeTasto="Nomefunzione()" !!solo alcuni tasti sono ammessi dopo il . trovi la lista sulla guida di vue)-->
+            <button @click="addToDo">Aggiungi</button>
         </div>
 
         <div class="todo-list">
-            <ul>
-                <li></li>
+            <ul v-if="toDos.length > 0">
+                <li v-for="(toDo, index) in toDos" :key="index">
+                    {{toDo}}
+                    <i @click="removeToDo(index)" class="fas fa-times"></i>
+                </li>
             </ul>
+            <h2 v-else>Non ci sono tasks attive!</h2>
         </div>
        
     </div>
